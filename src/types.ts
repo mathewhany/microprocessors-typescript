@@ -5,19 +5,22 @@ export type ReservationStationEntry = {
   vk: number;
   qj: string;
   qk: string;
+  timeRemaining: number;
 };
 
 export type InstructionHistoryEntry = {
   instruction: string;
-  issuedAt: number;
-  startExecutionAt: number;
-  endExecutionAt: number;
-  writeResultAt: number;
+  issuedAt: number | null;
+  startExecutionAt: number | null;
+  endExecutionAt: number | null;
+  writeResultAt: number | null;
+  stationName: string;
 };
 
 export type LoadBufferEntry = {
   busy: boolean;
   address: number;
+  timeRemaining: number;
 };
 
 export type StoreBufferEntry = {
@@ -25,6 +28,7 @@ export type StoreBufferEntry = {
   address: number;
   v: number;
   q: string;
+  timeRemaining: number;
 };
 
 export type RegisterFileEntry = {
@@ -88,6 +92,9 @@ export type SystemState = {
   };
   intRegisters: {
     [key: number]: RegisterFileEntry;
+  };
+  latencies: {
+    [key in InstructionType]: number;
   };
   notes: string[];
 };

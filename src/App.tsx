@@ -116,6 +116,7 @@ function App() {
             <ReservationStationView
               entries={systemState.adderReservationStations}
               title="Adder Reservation Stations"
+              namePrefix="A"
             />
           </Grid>
 
@@ -123,6 +124,7 @@ function App() {
             <ReservationStationView
               entries={systemState.mulReservationStations}
               title="Multiplier Reservation Stations"
+              namePrefix="M"
             />
           </Grid>
           <Grid item xs={12} md={6}>

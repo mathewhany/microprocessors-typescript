@@ -9,10 +9,11 @@ import {
 import { ReservationStationEntry } from "../types";
 
 export function ReservationStationView({
-  entries, title,
+  entries, title, namePrefix
 }: {
   entries: ReservationStationEntry[];
   title: string;
+  namePrefix: string;
 }) {
   return (
     <Card>
@@ -21,6 +22,8 @@ export function ReservationStationView({
         <Table>
           <TableHead>
             <TableRow>
+              <TableCell>Time Remaining</TableCell>
+              <TableCell>Name</TableCell>
               <TableCell>Busy</TableCell>
               <TableCell>Op</TableCell>
               <TableCell>Vj</TableCell>
@@ -32,6 +35,8 @@ export function ReservationStationView({
           <TableBody>
             {entries.map((station, index) => (
               <TableRow key={index}>
+              <TableCell>{station.timeRemaining}</TableCell>
+                <TableCell>{namePrefix + (index + 1)}</TableCell>
                 <TableCell>{station.busy ? "Yes" : "No"}</TableCell>
                 <TableCell>{station.op}</TableCell>
                 <TableCell>{station.vj}</TableCell>

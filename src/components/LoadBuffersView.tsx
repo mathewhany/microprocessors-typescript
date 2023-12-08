@@ -22,6 +22,8 @@ export function LoadBuffersView({
         <Table>
           <TableHead>
             <TableRow>
+              <TableCell>Time Remaining</TableCell>
+              <TableCell>Name</TableCell>
               <TableCell>Busy</TableCell>
               <TableCell>Address</TableCell>
             </TableRow>
@@ -29,6 +31,8 @@ export function LoadBuffersView({
           <TableBody>
             {loadBuffers.map((loadBuffer, index) => (
               <TableRow key={index}>
+                <TableCell>{loadBuffer.timeRemaining}</TableCell>
+                <TableCell>{"L" + (index + 1)}</TableCell>
                 <TableCell>{loadBuffer.busy ? "Yes" : "No"}</TableCell>
                 <TableCell>{loadBuffer.address}</TableCell>
               </TableRow>

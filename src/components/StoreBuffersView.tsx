@@ -20,6 +20,7 @@ export function StoreBuffersView({
         <Table>
           <TableHead>
             <TableRow>
+              <TableCell>Time Remaining</TableCell>
               <TableCell>Busy</TableCell>
               <TableCell>Address</TableCell>
               <TableCell>V</TableCell>
@@ -29,6 +30,7 @@ export function StoreBuffersView({
           <TableBody>
             {storeBuffers.map((station, index) => (
               <TableRow key={index}>
+                <TableCell>{station.timeRemaining}</TableCell>
                 <TableCell>{station.busy ? "Yes" : "No"}</TableCell>
                 <TableCell>{station.address}</TableCell>
                 <TableCell>{station.v}</TableCell>
