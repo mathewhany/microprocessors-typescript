@@ -81,9 +81,9 @@ function App() {
                   <Button
                     variant="contained"
                     onClick={onNextClicked}
-                    disabled={
-                      systemState.nextIssue >= systemState.instructions.length
-                    }
+                    // disabled={
+                    //   systemState.nextIssue >= systemState.instructions.length
+                    // }
                   >
                     Next
                   </Button>
