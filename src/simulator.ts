@@ -179,7 +179,7 @@ function issueStage(newState: SystemState) {
       typedRS.vj = source1Register.value;
       typedRS.qj = source1Register.q;
     }
-    
+
     if (source1.startsWith("F") || source1.startsWith("R")) {
       const source1Register = getRegister(source1, newState);
       typedRS.vj = source1Register.value;
@@ -201,7 +201,10 @@ function issueStage(newState: SystemState) {
     }
   }
 
-  if (instructionType != InstructionType.S_D && instructionType != InstructionType.BNEZ) {
+  if (
+    instructionType != InstructionType.S_D &&
+    instructionType != InstructionType.BNEZ
+  ) {
     const destinationRegIndex = Number(destination.substring(1));
 
     if (destination.startsWith("F")) {
@@ -222,6 +225,8 @@ function getReservationStationsForInstruction(
     [
       InstructionType.ADD_D,
       InstructionType.SUB_D,
+      InstructionType.ADD_DI,
+      InstructionType.SUB_DI,
       InstructionType.ADDI,
       InstructionType.SUBI,
       InstructionType.BNEZ,
@@ -232,7 +237,12 @@ function getReservationStationsForInstruction(
       prefix: "A",
     };
   } else if (
-    [InstructionType.MUL_D, InstructionType.DIV_D].includes(instructionType)
+    [
+      InstructionType.MUL_D,
+      InstructionType.DIV_D,
+      InstructionType.MUL_DI,
+      InstructionType.DIV_DI,
+    ].includes(instructionType)
   ) {
     return {
       reservationStations: newState.mulReservationStations,
@@ -273,7 +283,7 @@ function executeStage(newState: SystemState) {
     } else {
       rs.timeRemaining--;
     }
-    
+
     if (rs.op === InstructionType.BNEZ) {
       if (rs.timeRemaining === 1) {
         if (rs.vj != 0) {
@@ -300,7 +310,6 @@ function executeStage(newState: SystemState) {
           rs.result = rs.vj - rs.vk;
           break;
         case InstructionType.BNEZ:
-          
           break;
         case InstructionType.MUL_D:
         case InstructionType.MUL_DI:
@@ -379,7 +388,7 @@ function writeResultStage(newState: SystemState) {
       rs.q = "";
     }
   }
-  
+
   // Reset BNEZ reservation station that finished
   for (const rs of newState.adderReservationStations) {
     if (rs.busy && rs.timeRemaining === 0 && rs.op === InstructionType.BNEZ) {
@@ -461,7 +470,7 @@ function writeResultStage(newState: SystemState) {
 }
 
 function parseInstruction(instructionStr: string) {
-  const instructionParts = instructionStr.split(" ")
+  const instructionParts = instructionStr.split(" ");
 
   const offset = instructionParts[0].endsWith(":") ? 1 : 0;
 
@@ -524,12 +533,12 @@ function getReservationStationWithMaxDependencies(state: SystemState) {
     const reservationStationName =
       state.instructionHistory[rs.historyIndex!].stationName;
     const count = countDependencies(state, reservationStationName);
-    
+
     if (count > maxCount) {
       maxCount = count;
       maxRS = rs;
     }
-    
+
     if (count == maxCount && maxRS && rs.historyIndex! < maxRS.historyIndex!) {
       maxRS = rs;
     }
@@ -545,7 +554,7 @@ function getReservationStationWithMaxDependencies(state: SystemState) {
       maxCount = count;
       maxRS = rs;
     }
-    
+
     if (count == maxCount && maxRS && rs.historyIndex! < maxRS.historyIndex!) {
       maxRS = rs;
     }
