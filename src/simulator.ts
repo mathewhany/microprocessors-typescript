@@ -286,9 +286,11 @@ function executeStage(newState: SystemState) {
     if (rs.timeRemaining === 0) {
       switch (rs.op) {
         case InstructionType.ADD_D:
+        case InstructionType.ADD_DI:
           rs.result = rs.vj + rs.vk;
           break;
         case InstructionType.SUB_D:
+        case InstructionType.SUB_DI:
           rs.result = rs.vj - rs.vk;
           break;
         case InstructionType.ADDI:
@@ -301,9 +303,11 @@ function executeStage(newState: SystemState) {
           
           break;
         case InstructionType.MUL_D:
+        case InstructionType.MUL_DI:
           rs.result = rs.vj * rs.vk;
           break;
         case InstructionType.DIV_D:
+        case InstructionType.DIV_DI:
           if (rs.vk === 0) {
             alert("Bt3ml eh?!!!! M3dtsh 3la HAny El-Sharkawy wala eh?!");
           }
