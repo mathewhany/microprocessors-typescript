@@ -371,7 +371,7 @@ function executeStage(newState: SystemState) {
     }
 
     if (rs.timeRemaining === 0) {
-      rs.result = newState.cache[rs.address];
+      rs.result = newState.cache[rs.address] ?? 0;
     }
   }
 }
